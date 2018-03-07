@@ -5,6 +5,12 @@ app.set("view engine", "ejs")
 var campground = [
        {name: "Salmon Creek", image: "https://www.photosforclass.com/download/pixabay-2271828"},
        {name: "Granite Hill", image: "https://www.photosforclass.com/download/pixabay-2445212"},
+       {name: "Mountain Goat's Rest", image: "https://www.photosforclass.com/download/pixabay-2411069"},
+       {name: "Salmon Creek", image: "https://www.photosforclass.com/download/pixabay-2271828"},
+       {name: "Granite Hill", image: "https://www.photosforclass.com/download/pixabay-2445212"},
+       {name: "Mountain Goat's Rest", image: "https://www.photosforclass.com/download/pixabay-2411069"},
+       {name: "Salmon Creek", image: "https://www.photosforclass.com/download/pixabay-2271828"},
+       {name: "Granite Hill", image: "https://www.photosforclass.com/download/pixabay-2445212"},
        {name: "Mountain Goat's Rest", image: "https://www.photosforclass.com/download/pixabay-2411069"}
        ]; 
 
