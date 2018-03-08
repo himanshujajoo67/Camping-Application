@@ -35,7 +35,7 @@ app.get("/",function(req, res) {
 
 
 app.get("/campground/new", function(req, res){
-  res.render("new.ejs");
+  res.render("campgrouds/new");
 
 });
 
@@ -47,11 +47,22 @@ app.get("/campground/:id", function(req, res){
            console.log(err);
        } else {
            console.log(foundCampground);
-            res.render("shows",{campground: foundCampground});
+            res.render("campgrounds/shows",{campground: foundCampground});
        }
     });
   
 });
+
+app.get("/campground/:id/comments/new", function(req, res){
+    Campground.findById(req.params.id, function(err, campground){
+        if(err){
+            console.log(err);
+        } else {
+            res.render("comments/new", {campground: campground});
+        }
+    });
+});
+
 
 app.get("/campground", function(req, res) {
     //Get all campground from DB
@@ -59,7 +70,7 @@ app.get("/campground", function(req, res) {
         if(err){
             console.log(err)
         } else {
-               res.render("index", {campground:allCampground});
+               res.render("campgrounds/index", {campground:allCampground});
         }
     })
    
