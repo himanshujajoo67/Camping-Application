@@ -3,7 +3,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var mongoose =require("mongoose");
 var Campground = require("./models/campgrounds");
-var seedDB = require("./seeds")
+var seedDB = require("./seeds");
+var Comment = require("./models/comment");
 
 seedDB();
 mongoose.connect("mongodb://localhost/himanshu_camp");
@@ -53,7 +54,7 @@ app.get("/campground/:id", function(req, res){
   
 });
 
-app.get("/campground/:id/comments/new", function(req, res){
+app.get("/campgrounds/:id/comments/new", function(req, res){
     Campground.findById(req.params.id, function(err, campground){
         if(err){
             console.log(err);
@@ -63,7 +64,25 @@ app.get("/campground/:id/comments/new", function(req, res){
     });
 });
 
-
+app.post("/campgrounds/:id/comments", function(req, res){
+   Campground.findById(req.params.id,function(err, campground) {
+      if(err){
+          console.log(err);
+          res.redirect("/campgrounds");
+      } else {
+          Comment.create(req.body.comment, function(err,comment){
+              if(err){
+                  console.log(err);
+              } else {
+                  campground.comments.push(comment);
+                  campground.save();
+                  res.redirect("/campground/" + campground._id);
+              }
+          });
+      }
+   });
+    
+});
 app.get("/campground", function(req, res) {
     //Get all campground from DB
     Campground.find({}, function(err,allCampground){
