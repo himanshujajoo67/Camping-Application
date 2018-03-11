@@ -6,9 +6,11 @@ var Campground = require("./models/campgrounds");
 var seedDB = require("./seeds");
 var Comment = require("./models/comment");
 
+
 seedDB();
 mongoose.connect("mongodb://localhost/himanshu_camp");
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"))
 
 
 
