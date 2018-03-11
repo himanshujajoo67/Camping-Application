@@ -5,6 +5,9 @@ var mongoose =require("mongoose");
 var Campground = require("./models/campgrounds");
 var seedDB = require("./seeds");
 var Comment = require("./models/comment");
+var passport = require("passport");
+var localStrategy = require("passport-local");
+var User = require("./models/user")
 
 
 seedDB();
