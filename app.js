@@ -6,16 +6,28 @@ var Campground = require("./models/campgrounds");
 var seedDB = require("./seeds");
 var Comment = require("./models/comment");
 var passport = require("passport");
-var localStrategy = require("passport-local");
+var LocalStrategy = require("passport-local");
 var User = require("./models/user")
 
 
 seedDB();
 mongoose.connect("mongodb://localhost/himanshu_camp");
 app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"))
+app.use(express.static(__dirname + "/public"));
 
 
+//passport configuration
+app.use(require("express-session")({
+    secret:"Once again rusty wins",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 // Campground.remove(
@@ -116,11 +128,27 @@ app.post("/campground", function(req, res){
        }
        
    });
-  
-   
-   
 });
 
+//Auth Routes
+app.get("/register", function(req, res){
+    res.render("register");
+});
+
+
+//
+app.post("/register", function(req,res){
+    var newUser = new User({username: req.body.username});
+   User.register(newUser, req.body.password, function(err,user){
+       if(err){
+           console.log(err);
+           return res.render("register");
+       }
+       passport.authenticate("local")(req, res, function(){
+           res.redirect("/campground");
+       });
+   });
+});
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Camping application started");
 });
