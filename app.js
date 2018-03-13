@@ -43,8 +43,8 @@ app.use(function(req, res, next){
 });
 
 app.use(authRoutes);
-app.use(commentsRoutes);
-app.use(campgroundsRoutes);
+app.use("/campgrounds/:id/comments",commentsRoutes);
+app.use("/campground",campgroundsRoutes);
 
 
 

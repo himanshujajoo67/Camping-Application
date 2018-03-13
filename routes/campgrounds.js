@@ -3,7 +3,7 @@ var router = express.Router();
 var Campground = require("../models/campgrounds");
 var Comment = require("../models/comment");
 
-router.get("/campground", function(req, res) {
+router.get("/", function(req, res) {
     //Get all campground from DB
     Campground.find({}, function(err,allCampground){
         if(err){
@@ -15,7 +15,7 @@ router.get("/campground", function(req, res) {
    
 });
 
-router.post("/campground", function(req, res){
+router.post("/", function(req, res){
    //get data from forms and add to campground array
    var name = req.body.name;
    var image = req.body.image;
@@ -34,12 +34,12 @@ router.post("/campground", function(req, res){
 });
 
 
-router.get("/campground/new", function(req, res){
+router.get("/new", function(req, res){
   res.render("campgrounds/new");
 
 });
 
-router.get("/campground/:id", function(req, res){
+router.get("/:id", function(req, res){
     // find the campgroud with provided ID and render the show template for that campground
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
        if(err){
