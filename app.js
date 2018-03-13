@@ -16,7 +16,7 @@ var authRoutes        = require("./routes/auth");
 
 
 
-seedDB();
+// seedDB(); //Seed DB
 mongoose.connect("mongodb://localhost/himanshu_camp");
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
