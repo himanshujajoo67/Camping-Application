@@ -8,7 +8,7 @@ var Comment = require("./models/comment");
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var User = require("./models/user");
-
+var methodOverride =  require("method-override");
 var commentsRoutes    = require("./routes/comments");
 var campgroundsRoutes = require("./routes/campgrounds");
 var authRoutes        = require("./routes/auth");
@@ -18,8 +18,9 @@ var authRoutes        = require("./routes/auth");
 
 // seedDB(); //Seed DB
 mongoose.connect("mongodb://localhost/himanshu_camp");
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 
 //passport configuration
