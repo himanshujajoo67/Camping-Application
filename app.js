@@ -35,6 +35,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
@@ -45,7 +46,7 @@ app.use(authRoutes);
 app.use(commentsRoutes);
 app.use(campgroundsRoutes);
 
-app.use(bodyParser.urlencoded({extended: true}));
+
 
 app.listen(process.env.PORT, process.env.IP, function(){
     console.log("Camping application started");

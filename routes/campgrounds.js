@@ -35,7 +35,7 @@ router.post("/campground", function(req, res){
 
 
 router.get("/campground/new", function(req, res){
-  res.render("campgrouds/new");
+  res.render("campgrounds/new");
 
 });
 
