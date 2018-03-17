@@ -88,7 +88,7 @@ router.get("/:id/edit", middleware.checkCampgroudOwner, function(req, res){
 });
 
 // UPDATE CAMPGROUND ROUTE
-router.put("/:id", middleware.checkCampgroundOwnership, function(req, res){
+router.put("/:id", middleware.checkCampgroudOwner, function(req, res){
   geocoder.geocode(req.body.location, function (err, data) {
     if (err || !data.length) {
       req.flash('error', 'Invalid address');
@@ -104,7 +104,7 @@ router.put("/:id", middleware.checkCampgroundOwnership, function(req, res){
             res.redirect("back");
         } else {
             req.flash("success","Successfully Updated!");
-            res.redirect("/campgrounds/" + campground._id);
+            res.redirect("/campground/" + campground._id);
         }
     });
   });

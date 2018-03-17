@@ -9,8 +9,7 @@ middlewareObject.checkCampgroudOwner = function(req, res, next) {
        if(err) {
            req.flash("error", "Campground not found")
            res.redirect("back");
-       } 
-       else{
+       } else{
            if(foundCampground.author.id.equals(req.user._id)) {
                next();
            } else {
