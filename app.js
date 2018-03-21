@@ -23,6 +23,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
+app.locals.moment = require('moment');
 
 //passport configuration
 app.use(require("express-session")({
@@ -31,11 +32,15 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
 
 app.use(bodyParser.urlencoded({extended: true}));
 

@@ -24,6 +24,7 @@
     "express-session": "^1.15.6",
     "method": "^2.0.0",
     "method-override": "^2.3.10",
+    "moment": "^2.21.0",
     "mongoose": "^5.0.9",
     "node-geocoder": "^3.22.0",
     "override": "0.0.1",
