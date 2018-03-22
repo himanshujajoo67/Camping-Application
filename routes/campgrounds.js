@@ -18,15 +18,30 @@ var geocoder = NodeGeocoder(options);
 
 
 router.get("/", function(req, res) {
-    //Get all campground from DB
-    Campground.find({}, function(err,allCampground){
-        if(err){
-            console.log(err)
-        } else {
-               res.render("campgrounds/index", {campground:allCampground, currentUser: req.user});
-        }
-    });
-   
+    var noMatch = null;
+    if(req.query.search) {
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        // Get all campgrounds from DB
+        Campground.find({name: regex}, function(err, allCampgrounds){
+           if(err){
+               console.log(err);
+           } else {
+              if(allCampgrounds.length < 1) {
+                  noMatch = "No campgrounds match that query, please try again.";
+              }
+              res.render("campgrounds/index",{campground :allCampgrounds, noMatch: noMatch});
+           }
+        });
+    } else {
+        // Get all campgrounds from DB
+        Campground.find({}, function(err, allCampgrounds){
+           if(err){
+               console.log(err);
+           } else {
+              res.render("campgrounds/index",{campground :allCampgrounds, noMatch: noMatch});
+           }
+        });
+    }
 });
 
 //CREATE - add new campground to DB
@@ -123,6 +138,9 @@ router.delete("/:id", middleware.checkCampgroudOwner,function(req, res){
 });
 
 
+function escapeRegex(text) {
+     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+ };
 
 
 module.exports = router;
