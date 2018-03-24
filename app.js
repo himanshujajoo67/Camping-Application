@@ -18,11 +18,12 @@ var flash = require("connect-flash");
 
 
 // seedDB(); //Seed DB
-mongoose.connect("mongodb://localhost/himanshu_camp");
-app.set('view engine', 'ejs');
+// mongoose.connect("mongodb://localhost/himanshu_camp");
+mongoose.connect("mongodb://himanshu:himanshu@ds123619.mlab.com:23619/himanshuscamp");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 app.use(flash());
+app.set('view engine', 'ejs');
 app.locals.moment = require("moment");
 
 //passport configuration
